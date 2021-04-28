@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MainLayout from "../../layouts/mainlayout";
+import TodoInput from "./components/TodoInput";
 import TodoItems from "./components/TodoItems";
 import Todo from "./Todo";
+
+import * as uuid from "uuid";
 
 const ContentHeader = () => {
   return (
@@ -27,17 +30,19 @@ const ContentHeader = () => {
 };
 
 const Content: React.FunctionComponent = () => {
-  const todoItems: Todo[] = [];
-  todoItems.push(
+  const [todos, setState] = useState<Todo[]>([
     {
+      id: uuid.v4(),
       name: "Fist todo",
-      done: false,
+      done: true,
     },
     {
+      id: uuid.v4(),
       name: "Second todo",
       done: false,
-    }
-  );
+    },
+  ]);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -47,20 +52,42 @@ const Content: React.FunctionComponent = () => {
       <div className="card-body">
         <div className="row">
           <div className="col mb-3">
-            <div className="input-group">
-              <input type="text" className="form-control" placeholder="Please input task" />
-              <div className="input-group-append">
-                <button className="btn btn-primary" type="button">
-                  Add
-                </button>
-              </div>
-            </div>
+            <TodoInput
+              addTodo={(name) => {
+                setState(
+                  [
+                    {
+                      id: uuid.v4(),
+                      name: name,
+                      done: false,
+                    },
+                  ].concat(todos)
+                );
+              }}
+            ></TodoInput>
           </div>
         </div>
 
         <div className="row">
           <div className="col">
-            <TodoItems todos={todoItems}></TodoItems>
+            <TodoItems
+              todos={todos}
+              onDelete={(id) => {
+                let newTodos = todos.filter((todo) => {
+                  return todo.id !== id;
+                });
+                setState(newTodos);
+              }}
+              onFinish={(id) => {
+                let newTodos = todos.map((todo) => {
+                  if (todo.id === id) {
+                    todo.done = true;
+                  }
+                  return todo;
+                });
+                setState(newTodos);
+              }}
+            ></TodoItems>
           </div>
         </div>
       </div>
