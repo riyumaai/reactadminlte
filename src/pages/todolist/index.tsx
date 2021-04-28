@@ -9,7 +9,7 @@ const ContentHeader = () => {
   return (
     <div className="row mb-2">
       <div className="col-sm-6">
-        <h1 className="m-0">TODO</h1>
+        <h1 className="m-0">Todo List Example</h1>
       </div>
 
       <div className="col-sm-6">
@@ -27,7 +27,6 @@ const ContentHeader = () => {
 };
 
 const Content: React.FunctionComponent = () => {
-  
   const todoItems: Todo[] = [];
   todoItems.push(
     {
