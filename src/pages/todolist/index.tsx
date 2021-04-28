@@ -19,7 +19,7 @@ const ContentHeader = () => {
               <i className="fas fa-tachometer-alt"></i>
             </Link>
           </li>
-          <li className="breadcrumb-item active">TODO List</li>
+          <li className="breadcrumb-item active">Todo List</li>
         </ol>
       </div>
     </div>
