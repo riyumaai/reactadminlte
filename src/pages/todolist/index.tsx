@@ -30,18 +30,7 @@ const ContentHeader = () => {
 };
 
 const Content: React.FunctionComponent = () => {
-  const [todos, setState] = useState<Todo[]>([
-    {
-      id: uuid.v4(),
-      name: "Fist todo",
-      done: true,
-    },
-    {
-      id: uuid.v4(),
-      name: "Second todo",
-      done: false,
-    },
-  ]);
+  const [todos, setState] = useState<Todo[]>([]);
 
   return (
     <div className="card">

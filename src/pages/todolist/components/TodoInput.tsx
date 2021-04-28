@@ -1,10 +1,16 @@
 import { CODE_RETURN } from "keycode-js";
 import React, { KeyboardEvent, useState } from "react";
+import Swal from "sweetalert2";
 
 const TodoInput: React.FunctionComponent<{ addTodo: (item: string) => void }> = (props: React.PropsWithChildren<{ addTodo: (item: string) => void }>) => {
   const [name, setName] = useState("");
 
   function handleClick() {
+    if (name.length === 0) {
+      Swal.fire("Oops...", "Task name cannot be empty!", "error");
+      return;
+    }
+
     props.addTodo(name);
   }
 
@@ -23,7 +29,7 @@ const TodoInput: React.FunctionComponent<{ addTodo: (item: string) => void }> = 
         onChange={(e) => {
           setName(e.target.value);
         }}
-        placeholder="Please input task"
+        placeholder="Please set task name"
         onKeyDown={handleKeydown}
         value={name}
       />
