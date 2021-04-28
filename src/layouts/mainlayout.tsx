@@ -25,7 +25,6 @@ const MainLayout: React.FunctionComponent<MainLayoutProps> = (props: React.Props
         </ul>
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
-          
           {/* Navbar Search */}
           <li className="nav-item">
             <a className="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -133,9 +132,7 @@ const MainLayout: React.FunctionComponent<MainLayoutProps> = (props: React.Props
         </div>
         {/* /.content-header */}
         {/* Main content */}
-        <section className="content">
-          <div className="container-fluid">{props.children}</div>
-        </section>
+        <section className="content">{props.children}</section>
         {/* /.content */}
       </div>
 
