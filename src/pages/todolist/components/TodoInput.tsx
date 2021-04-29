@@ -4,20 +4,33 @@ import Swal from "sweetalert2";
 
 const TodoInput: React.FunctionComponent<{ addTodo: (item: string) => void }> = (props: React.PropsWithChildren<{ addTodo: (item: string) => void }>) => {
   const [name, setName] = useState("");
+  const [input, setInput] = useState<HTMLInputElement | null>(null);
 
-  function handleClick() {
+  function verifyInput() {
     if (name.length === 0) {
-      Swal.fire("Oops...", "Task name cannot be empty!", "error");
-      return;
+      Swal.fire("Oops...", "Task name cannot be empty!", "error").then(() => {
+        
+      });
+    } else {
+      props.addTodo(name);
+      setName("");
+      if (input) {
+        input.focus();
+      }
     }
+  }
 
-    props.addTodo(name);
+  function handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    if (input) {
+      input.focus();
+    }
+    verifyInput();
   }
 
   function handleKeydown(e: KeyboardEvent) {
     if (e.code === CODE_RETURN) {
-      handleClick();
-      setName("");
+      e.preventDefault();
+      verifyInput();
     }
   }
 
@@ -32,6 +45,10 @@ const TodoInput: React.FunctionComponent<{ addTodo: (item: string) => void }> = 
         placeholder="Please set task name"
         onKeyDown={handleKeydown}
         value={name}
+        ref={(element) => {
+          setInput(element);
+        }}
+        autoFocus
       />
       <div className="input-group-append">
         <button className="btn btn-primary" type="button" onClick={handleClick}>
