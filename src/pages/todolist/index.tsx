@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import MainLayout from "../../layouts/mainlayout";
 import TodoInput from "./components/TodoInput";
@@ -32,6 +32,14 @@ const ContentHeader = () => {
 const Content: React.FunctionComponent = () => {
   const [todos, setState] = useState<Todo[]>([]);
 
+  const todoRef = useRef<TodoInput>(null);
+
+  function test() {
+    if (todoRef.current) {
+      todoRef.current.setFocusInput();
+    }
+  }
+
   return (
     <div className="card">
       <div className="card-header">
@@ -42,7 +50,12 @@ const Content: React.FunctionComponent = () => {
         <div className="row">
           <div className="col mb-3">
             <TodoInput
+              ref={todoRef}
               addTodo={(name) => {
+
+
+                Swal.fire("Oops...", "Task name cannot be empty!", "error").then(() => {});
+
                 setState(
                   [
                     {
@@ -62,12 +75,16 @@ const Content: React.FunctionComponent = () => {
             <TodoItems
               todos={todos}
               onDelete={(id) => {
+                test();
+
                 let newTodos = todos.filter((todo) => {
                   return todo.id !== id;
                 });
                 setState(newTodos);
               }}
               onFinish={(id) => {
+                test();
+
                 let newTodos = todos.map((todo) => {
                   if (todo.id === id) {
                     todo.done = true;
