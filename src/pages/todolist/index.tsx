@@ -52,9 +52,7 @@ const Content: React.FunctionComponent = () => {
             <TodoInput
               ref={todoRef}
               addTodo={(name) => {
-
-
-                Swal.fire("Oops...", "Task name cannot be empty!", "error").then(() => {});
+                // Swal.fire("Oops...", "Task name cannot be empty!", "error").then(() => {});
 
                 setState(
                   [
